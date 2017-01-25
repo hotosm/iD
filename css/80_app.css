@@ -2927,6 +2927,19 @@ img.tile-removing {
     background-position: -400px -460px;
 }
 
+/* Shortcuts Modal
+------------------------------------------------------- */
+
+.modal-shortcuts {
+    padding-bottom: 20px;
+}
+
+.modal-shortcuts kbd {
+    padding: 2px 4px;
+    background: #eee;
+    margin-right: 4px;
+}
+
 /* Commit Modal
 ------------------------------------------------------- */
 
