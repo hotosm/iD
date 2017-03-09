@@ -2930,16 +2930,6 @@ img.tile-removing {
 /* Shortcuts Modal
 ------------------------------------------------------- */
 
-.modal-shortcuts {
-    padding-bottom: 20px;
-}
-.modal-shortcuts .modal-section {
-    margin-bottom: 10px;
-}
-.modal-shortcuts .wrapper {
-    padding: 0 20px;
-}
-
 .modal-shortcuts .tabs-bar {
     text-align: center;
     padding-bottom: 10px;
@@ -2978,7 +2968,6 @@ img.tile-removing {
     padding-right: 10px;
     color: #767676;
     text-align: right;
-    white-space: nowrap;
     padding-bottom: 5px;
     width: 50%;
     
@@ -3947,4 +3936,23 @@ img.tile-removing {
 }
 [dir='rtl'] .spin-control button.increment{
   border-bottom-left-radius: 3px;
+}
+/* modal */
+[dir='rtl'] .modal > button {
+    position: absolute;
+    left: 0;
+    right: unset;
+    top: 0;
+    height: 59px;
+    z-index: 50;
+}
+
+/* shortcuts modal */
+
+[dir='rtl'] .kbd-row {
+    padding-left: 10px;
+    color: #767676;
+    text-align: left;
+    padding-bottom: 5px;
+    width: 50%;
 }

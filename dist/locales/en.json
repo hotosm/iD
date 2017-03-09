@@ -705,6 +705,9 @@
             }
         },
         "shortcuts": {
+            "modal": {
+                "title": "Keyboard shortcuts"
+            },
             "display": {
                 "desc": "Display",
                 "pan_map": "Pan map",
