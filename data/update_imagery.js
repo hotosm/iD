@@ -34,6 +34,19 @@ var blacklist = {
 
 var whitelist = [
     // Add custom sources here if needed.
+    // Pre/Post event imagary - https://github.com/hotosm/iD/issues/1
+    {
+        "id": "2010-eq-pre-event",
+        "name": "2010 EQ pre-event imagery",
+        "type": "tms",
+        "url": "http://tiles.staging.openaerialmap.org/58efcec02d30b500119a84f4/0/{z}/{x}/{y}.png"
+    },
+    {
+        "id": "2010-eq-post-event",
+        "name": "2010 EQ post-event imagery",
+        "type": "tms",
+        "url": "http://tiles.staging.openaerialmap.org/58ef73b596b4910010327d45/0/{z}/{x}/{y}.png"
+    }
 ];
 
 var descriptions = {
@@ -42,7 +55,7 @@ var descriptions = {
     'MAPNIK': 'The default OpenStreetMap layer.'
 };
 
-sources.concat(whitelist).forEach(function(source) {
+whitelist.concat(sources).forEach(function(source) {
     if (source.type !== 'tms' && source.type !== 'bing') return;
     if (source.id in blacklist) return;
 
