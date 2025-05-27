@@ -188,8 +188,6 @@ export function svgPanoramaxImages(projection, context, dispatch) {
     }
 
     function editOff() {
-        const service = getService();
-        service.hideViewer(context);
         layer.selectAll('.viewfield-group').remove();
         layer.style('display', 'none');
     }
@@ -234,10 +232,6 @@ export function svgPanoramaxImages(projection, context, dispatch) {
         let sequences = (service ? service.sequences(projection, zoom) : []);
         let images = (service && zoom >= imageMinZoom ? service.images(projection) : []);
         dispatch.call('photoDatesChanged', this, 'panoramax', [...images.map(p => p.capture_time), ...sequences.map(s => s.properties.date)]);
-
-        let isHidden = d3_select('.photo-wrapper.panoramax-wrapper.hide').size();
-
-        if (isHidden) service.setActiveImage(null);
 
         images = await filterImages(images);
         sequences = await filterSequences(sequences, service);

@@ -9,6 +9,8 @@ import { geoExtent, geoScaleToZoom } from '../geo';
 import { t, localizer } from '../core/localizer';
 import pannellumPhotoFrame from './pannellum_photo';
 import planePhotoFrame from './plane_photo';
+import { services } from './';
+
 
 const apiUrl = 'https://api.panoramax.xyz/';
 const tileUrl = apiUrl + 'api/map/{z}/{x}/{y}.mvt';
@@ -178,6 +180,7 @@ function loadTileDataToCache(data, tile, zoom) {
             loc = feature.geometry.coordinates;
 
             d = {
+                service: 'photo',
                 loc: loc,
                 capture_time: feature.properties.ts,
                 capture_time_parsed: new Date(feature.properties.ts),
@@ -254,9 +257,6 @@ export default {
             mockSequences: { rtree: new RBush(), lineString: {} },
             requests: { loaded: {}, inflight: {} }
         };
-
-        _currentScene.currentImage = null;
-        _activeImage = null;
     },
 
     /**
@@ -418,15 +418,13 @@ export default {
      * @param {*} imageKey
      */
     updateUrlImage: function(imageKey) {
-        if (!window.mocha) {
-            var hash = utilStringQs(window.location.hash);
-            if (imageKey) {
-                hash.photo = 'panoramax/' + imageKey;
-            } else {
-                delete hash.photo;
-            }
-            window.location.replace('#' + utilQsString(hash, true));
+        const hash = utilStringQs(window.location.hash);
+        if (imageKey) {
+            hash.photo = 'panoramax/' + imageKey;
+        } else {
+            delete hash.photo;
         }
+        window.history.replaceState(null, '', '#' + utilQsString(hash, true));
     },
 
     /**
@@ -686,20 +684,21 @@ export default {
      * @param {*} context
      */
     showViewer: function (context) {
-        let wrap = context.container().select('.photoviewer')
-            .classed('hide', false);
-        let isHidden = wrap.selectAll('.photo-wrapper.panoramax-wrapper.hide').size();
+        const wrap = context.container().select('.photoviewer');
+        const isHidden = wrap.selectAll('.photo-wrapper.panoramax-wrapper.hide').size();
         if (isHidden) {
-            wrap
-                .selectAll('.photo-wrapper:not(.panoramax-wrapper)')
-                .classed('hide', true);
-            wrap
+            for (const service of Object.values(services)) {
+                if (service === this) continue;
+                if (typeof service.hideViewer === 'function') {
+                    service.hideViewer(context);
+                }
+            }
+            wrap.classed('hide', false)
                 .selectAll('.photo-wrapper.panoramax-wrapper')
                 .classed('hide', false);
         }
 
         _isViewerOpen = true;
-
         return this;
     },
 
