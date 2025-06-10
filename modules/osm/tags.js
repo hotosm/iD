@@ -322,3 +322,10 @@ export function osmShouldRenderDirection(vertexTags, wayTags) {
     if (vertexTags.cycleway === 'asl') return !!wayTags.highway;
     return true;
 }
+
+export var osmSummableTags = new Set([
+    'step_count',
+    'parking:both:capacity',
+    'parking:left:capacity',
+    'parking:left:capacity'
+]);

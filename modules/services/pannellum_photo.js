@@ -19,8 +19,7 @@ export default {
       .attr('class', 'photo-frame pannellum-frame')
       .attr('id', 'ideditor-pannellum-viewer')
       .classed('hide', true)
-      .on('mousedown', function(e) { e.stopPropagation(); })
-      .on('keydown', function(e) { e.stopPropagation(); });
+      .on('mousedown', function(e) { e.stopPropagation(); });
 
     if (!window.pannellum) {
       await this.loadPannellum(context);
@@ -29,7 +28,8 @@ export default {
     const options = {
       'default': { firstScene: '' },
       scenes: {},
-      minHfov: 20
+      minHfov: 20,
+      disableKeyboardCtrl: true
     };
 
     _pannellumViewer = window.pannellum.viewer('ideditor-pannellum-viewer', options);
@@ -56,7 +56,7 @@ export default {
     this.event = utilRebind(this, dispatch, 'on');
 
     return this;
-    },
+  },
 
   loadPannellum: function(context) {
     const head = d3_select('head');
