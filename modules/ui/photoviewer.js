@@ -1,12 +1,13 @@
 import {
     select as d3_select
 } from 'd3-selection';
+import { clamp } from 'lodash-es';
 
 import { t } from '../core/localizer';
 import { dispatch as d3_dispatch } from 'd3-dispatch';
 import { svgIcon } from '../svg/icon';
 import { utilGetDimensions } from '../util/dimensions';
-import { utilRebind, utilStringQs } from '../util';
+import { utilRebind } from '../util';
 import { services } from '../services';
 import { uiTooltip } from './tooltip';
 import { actionChangeTags } from '../actions';
@@ -103,7 +104,8 @@ export function uiPhotoviewer(context) {
             }
 
             function renderAddPhotoIdButton(service, shouldDisplay) {
-                const button = selection.selectAll('.set-photo-from-viewer').data(shouldDisplay ? [0] : []);
+                const button = selection.selectAll('.set-photo-from-viewer')
+                    .data(shouldDisplay ? [0] : []);
 
                 button.exit()
                     .remove();
@@ -117,9 +119,12 @@ export function uiPhotoviewer(context) {
                         .placement('right')
                     );
 
-                buttonEnter.select('.tooltip')
+                buttonEnter
+                    .select('.tooltip')
                     .classed('dark', true)
-                    .style('width', '300px')
+                    .style('width', '300px');
+
+                buttonEnter
                     .merge(button)
                     .on('click', function (e) {
                         e.preventDefault();
@@ -228,10 +233,6 @@ export function uiPhotoviewer(context) {
                 }
 
                 dispatch.call(eventName, target, subtractPadding(utilGetDimensions(target, true), target));
-            }
-
-            function clamp(num, min, max) {
-                return Math.max(min, Math.min(num, max));
             }
 
             function stopResize(d3_event) {
