@@ -7,6 +7,7 @@ Everyone involved in the iD project is subject to the [Code of Conduct](CODE_OF_
 Please take a moment to read it before proceeding, it's short and simple. We want
 everyone to feel comfortable contributing to iD.
 
+The project is currently maintained by [@tyr_asd](https://github.com/tyrasd) and [@k-yle](https://github.com/k-yle/). Get in touch if you have any questions.
 
 ## Submitting Issues
 
@@ -211,10 +212,11 @@ switch to the development database.
 ## Translating
 
 Translations are managed using the
-[Transifex](https://www.transifex.com/openstreetmap/id-editor/) platform. After
-signing up, you can go to [iD's project
-page](https://www.transifex.com/openstreetmap/id-editor/), select a language and
-click **Translate** to start translating. Translations are divided into
+[Transifex](https://app.transifex.com/openstreetmap/id-editor/) platform. Sign up to Transifex via the
+["Join This Project"](https://app.transifex.com/join/?o=openstreetmap&p=id-editor&t=opensource) link on
+the [iD's project page](https://app.transifex.com/openstreetmap/id-editor/) and
+click **Translate** to start translating. If you try to join via the home page "Sign up" link you won't
+be able to create an account without a "business email". Translations are divided into
 separate resources:
 
 * *core* - contains text for the main interface of iD
@@ -235,11 +237,11 @@ For more information on translating the presets [please see this id-tagging-sche
 You can check your translations on the [development preview site](https://ideditor.netlify.app),
 which is updated every time we change the `develop` branch.
 
-[iD translation project on Transifex](https://www.transifex.com/openstreetmap/id-editor/)
+[iD translation project on Transifex](https://app.transifex.com/openstreetmap/id-editor/)
 
 To get notifications when translation source files change, click **Watch
 project** button near the bottom of the project page. You can edit your
-[notification settings](https://www.transifex.com/user/settings/notices/) if you're
+[notification settings](https://app.transifex.com/user/settings/notices/) if you're
 getting too many notifications.
 
 Translations are licensed under
@@ -262,7 +264,7 @@ These are separate translations for uniformity reasons and because some language
 
 **Why can't I find the Osmose QA layer translations?** The Osmose QA strings are
  pulled in from the external Osmose API. You can contribute to the
- [Osmose Transifex project](https://explore.transifex.com/openstreetmap-france/osmose/)
+ [Osmose Transifex project](https://app.transifex.com/openstreetmap-france/osmose/)
  and the results will be seen in iD once deployed.
 
 Note that if you want to add/update English translations in Osmose then you will

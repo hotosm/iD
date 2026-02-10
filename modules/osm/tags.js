@@ -1,13 +1,37 @@
 import { merge } from 'lodash-es';
 
+const uninterestingKeys = new Set([
+    'attribution',
+    'created_by',
+    'import_uuid',
+    'geobase:datasetName',
+    'geobase:uuid',
+    'KSJ2:curve_id',
+    'KSJ2:lat',
+    'KSJ2:long',
+    'lat',
+    'latitude',
+    'lon',
+    'longitude',
+    'source',
+    'source_ref',
+    'odbl',
+    'odbl:note'
+]);
+const uninterestingKeyRegex = /^(source(_ref)?|tiger):/;
+
+/**
+ * Returns whether the given OSM tag key is potentially "interesting".
+ * For example, some tags are deemed not interesting because the respective tag is
+ * considered "discardable".
+ *
+ * @param {string} key the key to test
+ * @returns {boolean}
+ */
 export function osmIsInterestingTag(key) {
-    return key !== 'attribution' &&
-        key !== 'created_by' &&
-        key !== 'source' &&
-        key !== 'odbl' &&
-        key.indexOf('source:') !== 0 &&
-        key.indexOf('source_ref') !== 0 && // purposely exclude colon
-        key.indexOf('tiger:') !== 0;
+    if (uninterestingKeys.has(key)) return false;
+    if (uninterestingKeyRegex.test(key))  return false;
+    return true;
 }
 
 export const osmLifecyclePrefixes = {
@@ -279,6 +303,26 @@ export var osmFlowingWaterwayTagValues = {
     canal: true, ditch: true, drain: true, fish_pass: true, flowline: true, river: true, stream: true, tidal_channel: true
 };
 
+// Tag values that represent actual land use (areas)
+export var osmLanduseTags = {
+    'amenity': {
+        'bicycle_parking': true,
+        'college': true,
+        'grave_yard': true,
+        'hospital': true,
+        'marketplace': true,
+        'motorcycle_parking': true,
+        'parking': true,
+        'place_of_worship': true,
+        'prison': true,
+        'school': true,
+        'university': true
+    },
+    'landuse': true,
+    'leisure': true,
+    'natural': true
+};
+
 // Tags which values should be considered case sensitive when offering tag suggestions
 export const allowUpperCaseTagValues = /network|taxon|genus|species|brand|grape_variety|royal_cypher|listed_status|booth|rating|stars|:output|_hours|_times|_ref|manufacturer|country|target|brewery|cai_scale|traffic_sign/;
 
@@ -296,7 +340,7 @@ export function isColourValid(value) {
 }
 
 // https://wiki.openstreetmap.org/wiki/Special:WhatLinksHere/Property:P44
-export var osmMutuallyExclusiveTagPairs = [
+export const osmMutuallyExclusiveTagPairs = [
     ['noname', 'name'],
     ['noref', 'ref'],
     ['nohousenumber', 'addr:housenumber'],
